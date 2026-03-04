@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopper — D&amp;D 5e Shop Generator for Foundry VTT</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>⚔️ Shopper</h1>
+    <p>D&amp;D 5e Shop Generator for Foundry VTT · Powered by the Open5e API</p>
+  </header>
+
+  <main>
+    <div class="layout">
+
+      <!-- LEFT COLUMN -->
+      <div class="left-column">
+
+        <!-- Shop Configuration -->
+        <section class="card" id="shop-config">
+          <h2>🏪 Shop Configuration</h2>
+          <div class="form-group">
+            <label for="shop-name">Shop Name</label>
+            <input type="text" id="shop-name" value="The Dragon's Hoard" placeholder="The Dragon's Hoard">
+          </div>
+          <div class="form-group">
+            <label for="shopkeeper-name">Shopkeeper</label>
+            <input type="text" id="shopkeeper-name" placeholder="Theron Goldhand">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="shop-type">Shop Type</label>
+              <select id="shop-type">
+                <option value="general">General Store</option>
+                <option value="blacksmith">Blacksmith</option>
+                <option value="alchemist">Alchemist</option>
+                <option value="magic">Magic Shop</option>
+                <option value="tavern">Tavern</option>
+                <option value="armorer">Armorer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="price-modifier">Price Modifier (%)</label>
+              <input type="number" id="price-modifier" value="100" min="10" max="500">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="shop-description">Description</label>
+            <textarea id="shop-description" rows="2" placeholder="A well-stocked shop run by a friendly merchant…"></textarea>
+          </div>
+        </section>
+
+        <!-- Item Browser -->
+        <section class="card" id="item-browser">
+          <h2>📖 Item Browser</h2>
+          <div class="tabs" role="tablist" aria-label="Item categories">
+            <button class="tab active" role="tab" aria-selected="true"  data-category="weapons">Weapons</button>
+            <button class="tab"        role="tab" aria-selected="false" data-category="armor">Armor</button>
+            <button class="tab"        role="tab" aria-selected="false" data-category="magicitems">Magic Items</button>
+            <button class="tab"        role="tab" aria-selected="false" data-category="equipment">Equipment</button>
+          </div>
+          <div class="search-bar">
+            <input type="text" id="item-search" placeholder="Search items…" aria-label="Search items">
+            <button id="search-btn" aria-label="Search">Search</button>
+          </div>
+          <div id="item-list" class="item-list" role="list">
+            <p class="hint">Loading items…</p>
+          </div>
+          <div id="pagination" class="pagination" aria-label="Pagination"></div>
+        </section>
+
+      </div><!-- /left-column -->
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-column">
+
+        <!-- Inventory -->
+        <section class="card" id="shop-inventory">
+          <h2>🛒 Shop Inventory <span id="item-count" class="badge">0 items</span></h2>
+          <div id="inventory-list" class="inventory-list">
+            <p class="hint">Add items from the browser on the left to build your shop.</p>
+          </div>
+        </section>
+
+        <!-- Export -->
+        <section class="card" id="export-section">
+          <h2>📤 Export to Foundry VTT</h2>
+          <p class="export-desc">
+            Exports your shop as a Foundry VTT Actor JSON file. In Foundry, open the <strong>Actors</strong>
+            directory, click <strong>Create Actor</strong>, then use <strong>Import Data</strong> to load the
+            JSON — your merchant will appear instantly with full inventory.
+          </p>
+          <div class="export-actions">
+            <button id="export-btn" class="btn-primary">⬇ Export JSON</button>
+            <button id="clear-btn" class="btn-danger">🗑 Clear Inventory</button>
+          </div>
+          <div id="export-preview" class="export-preview hidden">
+            <div class="preview-header">
+              <span>JSON Preview</span>
+              <button id="copy-btn" class="btn-copy">📋 Copy</button>
+            </div>
+            <pre id="preview-content"></pre>
+          </div>
+        </section>
+
+      </div><!-- /right-column -->
+
+    </div><!-- /layout -->
+  </main>
+
+  <footer>
+    <p>
+      Powered by <a href="https://open5e.com" target="_blank" rel="noopener">Open5e</a> ·
+      For use with <a href="https://foundryvtt.com" target="_blank" rel="noopener">Foundry VTT</a> ·
+      <a href="https://github.com/tescolopio/Shopper" target="_blank" rel="noopener">Source on GitHub</a>
+    </p>
+  </footer>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
